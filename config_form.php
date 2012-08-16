@@ -6,7 +6,7 @@ $mysql = 'SELECT * FROM '. $db->prefix .'elements
 		ORDER BY '. $db->prefix .'elements.order ASC';
 $our_crazy_array = $db->fetchAll($mysql);	
 $count_crazy_array = count($our_crazy_array);
-echo "$count_crazy_array has  djhdfgjk items";
+// echo "$count_crazy_array has  djhdfgjk items";
 
 for($x=0;$x<$count_crazy_array;$x++)
 	{

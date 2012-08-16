@@ -8,7 +8,7 @@ add_plugin_hook('install', 'simplify_install');
 add_plugin_hook('uninstall', 'simplify_uninstall');
 
 //suggestions
-//consolidate the "get the list"into its own list of functions
+//consolidate the "get the list" into its own list of functions
 // figure out the array of dublin core options
 // and pass that array around the script, rather than going to the DB too
 // many times. 
@@ -49,39 +49,39 @@ function simplify_install()
 
 function simplify_admin_theme_header($request)
 {
-   //find the absolute path!
-   //include 'simplify.php';
-var_dump($_SERVER);
-   ?>
-   <link rel="stylesheet" type="text/css" href="" />
-	<?php
+	// include CSS in the page to hide the various elements
+	echo '<style type="text/css">' . "\n";
+	include( dirname(__FILE__) . '/simplify.php' );
+	echo '</style>'. "\n";
 }
 
 function simplify_public_theme_header($request)
 {
-   // queue_css('my-stylesheet');	
+	// to be implemented
+	// queue_css('my-stylesheet');	
 }
 
 function simplify_config_form()
 {
-include 'config_form.php';
+	include 'config_form.php';
 }
 
 function simplify_config()
 {
 	$db = get_db();
 	$mysql = 'SELECT * FROM '. $db->prefix .'elements
-	WHERE 
+		WHERE 
 		element_set_id = "1" 
 		ORDER BY '. $db->prefix .'elements.order ASC';
 	$our_crazy_array = $db->fetchAll($mysql);	
 	$count_crazy_array = count($our_crazy_array);
 
-for($x=0;$x<$count_crazy_array;$x++)
+	for($x=0;$x<$count_crazy_array;$x++)
 	{   
-    // Use the form to set a bunch of default options in the db
-    $onoffswitch = $_POST['simplifyon'.$our_crazy_array[$x][id].''];
-    set_option('simplifyon'.$our_crazy_array[$x][id].'', $onoffswitch);
+		// Use the form to set a bunch of default options in the db
+		$onoffswitch = $_POST['simplifyon'.$our_crazy_array[$x][id].''];
+		set_option('simplifyon'.$our_crazy_array[$x][id].'', $onoffswitch);
 	}
 }
-    
+
+?>
