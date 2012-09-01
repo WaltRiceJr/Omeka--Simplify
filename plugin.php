@@ -58,20 +58,19 @@ function simplify_admin_theme_header($request)
 	$count_crazy_array = count($our_crazy_array);
 	for($x=0;$x<$count_crazy_array;$x++)
 	{
-		//there should be 15 of these. Unless someone hacked and modified the code...
-	 	$thisone = get_option('simplifyon'.$our_crazy_array[$x][id].'');
-		if($thisone == "no")
-			{
-				//first, parse the ID into the div. 
-				//the id of the fields on the admin
-				//side look like this: id="element-50"
-				$lowerme	= strtolower($our_crazy_array[$x][name]);
-				$styles .= "#dublin-core-". $lowerme ."{display:none;}";
-				$styles .=	"#element-". $our_crazy_array[$x][id] ."{display: none;}";
-			}
+		// there should be 15 of these. Unless someone hacked and modified the code...
+	 	$thisone = get_option('simplifyon' . $our_crazy_array[$x][id] . '');
+		if ($thisone == "no")
+		{
+			// the id of the fields on the admin view page look like this: id="dublin-core-alternative-title"
+			// need to make field name lowercase, and change spaces to dashes
+			$lowerme = str_replace(' ', '-', strtolower($our_crazy_array[$x][name]));
+			$styles .= "#dublin-core-" . $lowerme . " {display:none;} ";
+			// the id of the fields on the admin edit page look like this: id="element-50"
+			$styles .=	"#element-" . $our_crazy_array[$x][id] . " {display: none;} ";
+		}
 	}
-   queue_css_string($styles, $media = 'all', $conditional = false);
-
+	queue_css_string($styles, $media = 'all', $conditional = false);
 }
 
 function simplify_public_theme_header($request)
